@@ -15,6 +15,8 @@ public class GunSprite : MonoBehaviour
     public Sprite sprite1;
     public Sprite sprite2;
     public Sprite sprite3;
+    public GameObject bulletSpawner;
+    public BulletSpawner spawner;
     void Start()
     {
         
@@ -28,6 +30,7 @@ public class GunSprite : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        spawner = bulletSpawner.GetComponent<BulletSpawner>();
         if (spriteValue == 0)
         {
            //transform.localScale = new Vector3(0.567f, 0.567f, 0.567f);
@@ -37,6 +40,11 @@ public class GunSprite : MonoBehaviour
             //Set the gun sprite and image sprite in UI to the pistol
             spriteRenderer.sprite = sprite1;
             image.sprite = sprite1;
+            //Change the stats of the gun to pistol stats
+            /*spawner.autoFire = false;
+            spawner.bulletDamage = 10f;
+            spawner.bulletSpeed = 50f;
+            spawner.fireRate = 100f;*/
         }
         if (spriteValue == 1)
         {
@@ -46,6 +54,11 @@ public class GunSprite : MonoBehaviour
             //Set the gun sprite and image sprite in UI to the assault rifle
             spriteRenderer.sprite = sprite2;
             image.sprite = sprite2;
+            //Change the stats of the gun to assault rifle stats
+            /*spawner.autoFire = true;
+            spawner.bulletDamage = 20f;
+            spawner.bulletSpeed = 80f;
+            spawner.fireRate = 200f;*/
         }
         if (spriteValue == 2)
         {
@@ -53,6 +66,11 @@ public class GunSprite : MonoBehaviour
             //Set the gun sprite and image sprite in UI to the sniper rifle
             spriteRenderer.sprite = sprite3;
             image.sprite = sprite3;
+            //Change the stats of the gun to sniper rifle stats
+            /*spawner.autoFire = false;
+            spawner.bulletDamage = 100f;
+            spawner.bulletSpeed = 100f;
+            spawner.fireRate = 20f;*/
         }
     }
 }

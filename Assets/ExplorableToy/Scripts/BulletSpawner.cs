@@ -17,14 +17,15 @@ public class BulletSpawner : MonoBehaviour
     //Gameobject to determine where the muzzle spawns
     public GameObject spawner;
     //Classes for the bullet and muzzle
+    public GameObject bulletGO;
     public Bullet bullet;
     public Muzzle muzzle;
     int counter;
     //Values to control gun stats
-    bool autoFire = false;
-    float fireRate = 100f;
-    float bulletSpeed = 50f;
-    float bulletDamage = 10f;
+    public bool autoFire = false;
+    public float fireRate = 100f;
+    public float bulletSpeed = 50f;
+    public float bulletDamage = 10f;
     void Start()
     {
         
@@ -81,7 +82,7 @@ public class BulletSpawner : MonoBehaviour
         if (fire && counter >= fireRate)
         {
             //Spawns the bullet and muzzle flash
-            GameObject bulletGO = Instantiate(prefab, transform.position, transform.rotation);
+            bulletGO = Instantiate(prefab, transform.position, transform.rotation);
             bullet = bulletGO.GetComponent<Bullet>();
             //Set the bullet speed and damage on the bullet spawner script as I couldn't figure out a way to edit the prefab directly
             bullet.bulletSpeed(bulletSpeed);
