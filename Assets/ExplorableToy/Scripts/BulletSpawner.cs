@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Diagnostics.Tracing;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class BulletSpawner : MonoBehaviour
 {
@@ -19,13 +21,16 @@ public class BulletSpawner : MonoBehaviour
     public Muzzle muzzle;
     int counter;
     //Values to control gun stats
-    public bool autoFire = true;
-    static int fireRate = 100;
+    bool autoFire = false;
+    float fireRate = 100f;
+    float bulletSpeed = 50f;
+    float bulletDamage = 10f;
     void Start()
     {
         
     }
 
+    //Changes whether or not the gun is autofire or not with a button
     public void changeFire(bool f)
     {
         if (f)
@@ -39,6 +44,19 @@ public class BulletSpawner : MonoBehaviour
             //Debug.Log(false);
         }
         //autoFire = f;
+    }
+    //Changes the fire rate with a slider
+    public void changeFireRate(float fr)
+    {
+        fireRate = fr;
+    }
+    public void changeBulletSpeed(float bs)
+    {
+        bulletSpeed = bs;
+    }
+    public void changeBulletDamage(float bd)
+    {
+        bulletDamage = bd;
     }
 
     // Update is called once per frame
@@ -57,12 +75,18 @@ public class BulletSpawner : MonoBehaviour
             //Get mouse button continously fires as long as you hold the mouse button down
             fire = Input.GetMouseButton(0);
         }
+        //Prevent the gun from shooting if the cursor is over the UI
+        if (EventSystem.current.IsPointerOverGameObject()) return;
         //If the counter is over the fire rate it lets you shoot
         if (fire && counter >= fireRate)
         {
             //Spawns the bullet and muzzle flash
             GameObject bulletGO = Instantiate(prefab, transform.position, transform.rotation);
             bullet = bulletGO.GetComponent<Bullet>();
+            //Set the bullet speed and damage on the bullet spawner script as I couldn't figure out a way to edit the prefab directly
+            bullet.bulletSpeed(bulletSpeed);
+            bullet.bulletDamage(bulletDamage);
+            //Sets the position of the muzzle where the spawner is
             GameObject muzzleGO = Instantiate(prefab2, spawner.transform.position, transform.rotation);
             muzzle = muzzleGO.GetComponent<Muzzle>();
             //Set the muzzle's parent to the muzzle spawner to account for rotation

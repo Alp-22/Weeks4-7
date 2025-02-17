@@ -15,6 +15,7 @@ public class Muzzle : MonoBehaviour
     void Update()
     {
         counter++;
+        //Destroy the muzzle after 15 frames to make it seem like a flash
         if (counter >= 15)
         {
             Destroy(gameObject);
