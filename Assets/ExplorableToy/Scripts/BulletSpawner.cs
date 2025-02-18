@@ -31,6 +31,7 @@ public class BulletSpawner : MonoBehaviour
     public List<GameObject> spawnedBullets;
     void Start()
     {
+        //Initialize list to track spawned bullets
         spawnedBullets = new List<GameObject>();
     }
 
@@ -66,6 +67,7 @@ public class BulletSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Set the number values in the ui to the stats of the weapons
         damageT.text = bulletDamage.ToString();
         bulletspeedT.text = bulletSpeed.ToString();
         firerateT.text = fireRate.ToString();
@@ -90,7 +92,9 @@ public class BulletSpawner : MonoBehaviour
             //Spawns the bullet and muzzle flash
             bulletGO = Instantiate(prefab, transform.position, transform.rotation);
             bullet = bulletGO.GetComponent<Bullet>();
+            //Set the variable in the bullet script to know that this is the script that spawned it
             bullet.spawner = this;
+            //Add the spawned bullets to a list
             spawnedBullets.Add(bulletGO);
             //Set the bullet speed and damage on the bullet spawner script as I couldn't figure out a way to edit the prefab directly
             bullet.bulletSpeed(bulletSpeed);
