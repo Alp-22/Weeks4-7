@@ -35,16 +35,20 @@ public class Dummy : MonoBehaviour
                 Vector3 bulletPos = spawner.spawnedBullets[i].transform.position;
 
                 Vector3 dummyPos = transform.position;
-                if (bulletPos.x <= dummyPos.x + 1f &&
-                    bulletPos.x >= dummyPos.x - 1f &&
-                    bulletPos.y <= dummyPos.y + 1f &&
-                    bulletPos.y >= dummyPos.y - 1f)
+                if (bulletPos.x <= dummyPos.x + 0.8f &&
+                    bulletPos.x >= dummyPos.x - 0.8f &&
+                    bulletPos.y <= dummyPos.y + 0.8f &&
+                    bulletPos.y >= dummyPos.y - 0.8f)
                 {
                     //spawner.bullet.enabled = false;
                     dummyHP -= spawner.bulletDamage;
                     Destroy(spawner.spawnedBullets[i]);
                     Debug.Log("Hit");
                     hit = true;
+                    colorCurve = 0f;
+                    changeColor = Color.red;
+                    counter = 0;
+                    sprite.color = new Color(255, 255, 255);
                     //Debug.Log(dummyHP);
                 }
             }
@@ -69,14 +73,15 @@ public class Dummy : MonoBehaviour
         if (hit && counter<=255)
         {
             colorCurve = color.r + Time.deltaTime;
-            changeColor.r += hitReg.Evaluate(colorCurve);
+            changeColor.b += hitReg.Evaluate(colorCurve);
+            changeColor.g += hitReg.Evaluate(colorCurve);
             sprite.color = changeColor;
             counter++;
         }
         else
         {
             colorCurve = 0f;
-            changeColor = Color.black;
+            changeColor = Color.red;
             counter = 0;
             hit = false;
             sprite.color = new Color(255, 255, 255);
