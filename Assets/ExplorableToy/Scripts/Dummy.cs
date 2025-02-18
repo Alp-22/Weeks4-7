@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Tracing;
+using TMPro;
 using UnityEngine;
 
 public class Dummy : MonoBehaviour
@@ -11,18 +12,21 @@ public class Dummy : MonoBehaviour
     public AnimationCurve hitReg;
     public GameObject bulletSpawner;
     public BulletSpawner spawner;
+    public TextMeshProUGUI text;
     Color changeColor = new Color(0,0,0,255);
     float colorCurve;
     bool hit;
     int counter;
+    float dummyHP = 1000f, dummyMaxHP = 1000f;
+    int respawnCounter = 0;
     void Start()
     {
-        
     }
 
     // Update is called once per frame
     void Update()
     {
+        text.text = dummyHP + "/" + dummyMaxHP;
         spawner = bulletSpawner.GetComponent<BulletSpawner>();
         for (int i = 0; i < spawner.spawnedBullets.Count; i++)
         {
@@ -37,12 +41,30 @@ public class Dummy : MonoBehaviour
                     bulletPos.y >= dummyPos.y - 1f)
                 {
                     //spawner.bullet.enabled = false;
+                    dummyHP -= spawner.bulletDamage;
                     Destroy(spawner.spawnedBullets[i]);
                     Debug.Log("Hit");
                     hit = true;
+                    //Debug.Log(dummyHP);
                 }
             }
         }
+        if (dummyHP <= 0)
+        {
+            //gameObject.SetActive(false);
+            dummyHP = 1000f;
+        }
+        /*if (gameObject.activeSelf == false)
+        {
+            respawnCounter++;
+            Debug.Log(respawnCounter);
+            if (respawnCounter > 1000)
+            {
+                gameObject.SetActive(true);
+                dummyHP = 1000f;
+                respawnCounter = 0;
+            }
+        }    */
         Color color = new Color(0, 0, 0, 255);
         if (hit && counter<=255)
         {
@@ -59,6 +81,5 @@ public class Dummy : MonoBehaviour
             hit = false;
             sprite.color = new Color(255, 255, 255);
         }
-        
     }
 }

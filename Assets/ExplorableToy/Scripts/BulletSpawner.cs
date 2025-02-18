@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics.Tracing;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -18,6 +19,7 @@ public class BulletSpawner : MonoBehaviour
     public GameObject spawner;
     //Classes for the bullet and muzzle
     public GameObject bulletGO;
+    public TextMeshProUGUI damageT, bulletspeedT, firerateT;
     public Bullet bullet;
     public Muzzle muzzle;
     int counter;
@@ -64,6 +66,9 @@ public class BulletSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        damageT.text = bulletDamage.ToString();
+        bulletspeedT.text = bulletSpeed.ToString();
+        firerateT.text = fireRate.ToString();
         //Constantly increase the counter to account for firing rate
         counter++;
         bool fire = Input.GetMouseButtonDown(0);
