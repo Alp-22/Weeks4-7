@@ -24,20 +24,23 @@ public class Dummy : MonoBehaviour
     void Update()
     {
         spawner = bulletSpawner.GetComponent<BulletSpawner>();
-        if (spawner.bullet != null)
+        for (int i = 0; i < spawner.spawnedBullets.Count; i++)
         {
-            Vector3 bulletPos = spawner.bullet.transform.position;
-
-            Vector3 dummyPos = transform.position;
-            if (bulletPos.x <= dummyPos.x + 1f &&
-                bulletPos.x >= dummyPos.x - 1f &&
-                bulletPos.y <= dummyPos.y + 1f &&
-                bulletPos.y >= dummyPos.y - 1f)
+            if (spawner.spawnedBullets[i] != null)
             {
-                //spawner.bullet.enabled = false;
-                Destroy(spawner.bulletGO);
-                Debug.Log("Hit");
-                hit = true;
+                Vector3 bulletPos = spawner.spawnedBullets[i].transform.position;
+
+                Vector3 dummyPos = transform.position;
+                if (bulletPos.x <= dummyPos.x + 1f &&
+                    bulletPos.x >= dummyPos.x - 1f &&
+                    bulletPos.y <= dummyPos.y + 1f &&
+                    bulletPos.y >= dummyPos.y - 1f)
+                {
+                    //spawner.bullet.enabled = false;
+                    Destroy(spawner.spawnedBullets[i]);
+                    Debug.Log("Hit");
+                    hit = true;
+                }
             }
         }
         Color color = new Color(0, 0, 0, 255);

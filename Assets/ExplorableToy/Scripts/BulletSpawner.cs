@@ -26,9 +26,10 @@ public class BulletSpawner : MonoBehaviour
     public float fireRate = 100f;
     public float bulletSpeed = 50f;
     public float bulletDamage = 10f;
+    public List<GameObject> spawnedBullets;
     void Start()
     {
-        
+        spawnedBullets = new List<GameObject>();
     }
 
     //Changes whether or not the gun is autofire or not with a button
@@ -84,6 +85,8 @@ public class BulletSpawner : MonoBehaviour
             //Spawns the bullet and muzzle flash
             bulletGO = Instantiate(prefab, transform.position, transform.rotation);
             bullet = bulletGO.GetComponent<Bullet>();
+            bullet.spawner = this;
+            spawnedBullets.Add(bulletGO);
             //Set the bullet speed and damage on the bullet spawner script as I couldn't figure out a way to edit the prefab directly
             bullet.bulletSpeed(bulletSpeed);
             bullet.bulletDamage(bulletDamage);

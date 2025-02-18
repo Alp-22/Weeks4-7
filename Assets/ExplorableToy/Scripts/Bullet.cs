@@ -9,6 +9,7 @@ public class Bullet : MonoBehaviour
     float speed = 50f;
     //Set the damage of the bullet
     float damage = 10f;
+    public BulletSpawner spawner;
     int counter;
     void Start()
     {
